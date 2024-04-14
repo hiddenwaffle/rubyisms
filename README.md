@@ -1823,7 +1823,7 @@ MyScope.greeting
 * `BasicObject` is the top of the Ruby class tree
   * Subclasses typically use `method_missing` to extend functionality
 
-# Chapter 14 - Callable and runnable objects
+## Chapter 14 - Callable and runnable objects
 
 * Callable objects
   * `Proc` objects
