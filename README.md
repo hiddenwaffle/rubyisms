@@ -2097,6 +2097,8 @@ Executing system commands
 system('date')
 # Thu Mar  7 22:57:17 CST 2024
 # => true
+system('asdf', exception: true)
+# in `system': No such file or directory - asdf (Errno::ENOENT)
 $?
 # => #<Process::Status: pid 11955 exit 0>
 `date` # Backticks can also be used
@@ -2335,15 +2337,82 @@ first_5_multiples = self.method(:find_multiples).curry.(5)
 
 # Changes in 2.6
 
-TODO
+`Binding#source_location`
+
+```ruby
+# When used in irb
+# ...
+binding.source_location
+# => ["(irb)", 10]
+binding.source_location
+# => ["(irb)", 11]
+# ...
+```
+
+* `Kernel#yield_self` now has an alias named `#then`
+* Other changes
+  * `RubyVM::AbstractSyntaxTree.parse_file`
+  * Endless ranges, for example: `(1..)`
+  * `Enumerator#+` to generate an enumerator chain of `[self, other]`
+  * `Enumerable#chain` to generate an enumerator chain of `[self, *others]`
 
 # Changes in 2.7
 
-TODO
+Pattern Matching (Experimental)
+
+```ruby
+require "json"
+json = <<END
+{
+  "name": "Alice",
+  "age": 30,
+  "children": [{ "name": "Bob", "age": 2 }]
+}
+END
+case JSON.parse(json, symbolize_names: true)
+in { name: "Alice", children: [{ name: "Bob", age: age }] }
+  p age # => 2
+end
+```
+
+* `GC.compact`
+* Automatic conversion of keyword arguments and positional arguments is deprecated
+* Beginless range (experimental)
+  * Example: `arr[..3]`
+* `Enumerable#tally` counts the occurrence of each element
+  * Example: `["a", "b", "c", "b"].tally`
+* `Enumerator::Lazy#eager` generates a non-lazy enumerator from a lazy one
 
 # Changes in 3.0
 
-TODO
+Ractor - "an Actor-model like concurrent abstraction designed to provide a parallel execution feature without thread-safety concerns"
+```ruby
+def tarai(x, y, z) =
+  x <= y ? y : tarai(tarai(x-1, y, z),
+                     tarai(y-1, z, x),
+                     tarai(z-1, x, y))
+# sequential version:
+# 4.times{ tarai(14, 7, 0) }
+require 'benchmark'
+Benchmark.bm do |x|
+  # parallel version:
+  x.report('parallel'){
+    4.times.map do
+      Ractor.new { tarai(14, 7, 0) }
+    end.each(&:take)
+  }
+end
+```
+
+* `Fiber#scheduler` - "for intercepting blocking operations"
+* `Hash#except`
+* `rbs` gem and `typeprof` for static analysis
+* One-line pattern matching redesign
+  * Example: `{b: 10, c: 20} => {b:}` sets `b = 10`
+* `in` returns true or false instead of raising an error
+  * Example: `0 in 1` returns `false`
+* Endless method definition
+  * Example: `def square(x) = x * x`
 
 # Changes in 3.1
 
