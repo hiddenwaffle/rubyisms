@@ -2416,12 +2416,26 @@ end
 
 # Changes in 3.1
 
-TODO
+* Hash values can be omitted
+  * Example: `{x:, y:}` is syntax sugar for `{x: x, y: y}`
+  * Example: `foo(x:, y:)` is syntax sugar for `foo(x: x, y: y)`
+* `debug` gem
+* `error_highlight` gem
 
 # Changes in 3.2
 
-TODO
+* `Data` immutable value object class
+  * Similar to `Struct` for immutable support
+  * Example: `Measure = Data.define(:amount, :unit)`
+    * `weight = Measure.new(amount: 50, unit: 'kg')`
+    * `weight.with(amount: 40)` returns a new instance rather than mutate the receiver
+* WASI-based WebAssmbly support
+* `Regexp.timeout = n` and `Regexp.new(..., timeout: n)`
+* "A proc that accepts a single positional argument and keywords will no longer autosplat"
+  * Example: `proc { |a, **k| a }.call([1, 2])`
+    * Before: `=> 1`
+    * Now: `=> [1, 2]`
 
 # Changes in 3.3
 
-TODO
+Changes are mostly under the hood: "A new parser named Prism, uses Lrama as a parser generator, adds a new pure-Ruby JIT compiler named RJIT, and many performance improvements especially YJIT"
