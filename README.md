@@ -1,5 +1,7 @@
 # Rubyisms
-Notes from [_The Well-Grounded Rubyist, 3rd Edition_](https://www.manning.com/books/the-well-grounded-rubyist-third-edition)
+Notes from [_The Well-Grounded Rubyist, 3rd Edition_](https://www.manning.com/books/the-well-grounded-rubyist-third-edition).
+
+**Table of Contents**: Click on the hamburger menu in the upper-right corner of the GitHub display of this file.
 
 ## Stray Observations
 
