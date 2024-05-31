@@ -284,7 +284,7 @@ class C
 end
 ```
 
-* `require English` enables aliases for many built-in global variables
+* `require 'english'` enables aliases for many built-in global variables
   * `$INPUT_LINE_NUMBER` instead of `$.`
   * `$PID` instead of `$$`
   * etc...
